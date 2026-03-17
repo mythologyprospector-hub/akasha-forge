@@ -89,3 +89,6 @@ Akasha is not a single tool.
 It is an evolving research environment.
 
 Forge exists so the ecosystem can **grow intentionally rather than chaotically**.
+
+
+This repository participates in the Akasha ecosystem and is described by repo-manifest.yaml.
