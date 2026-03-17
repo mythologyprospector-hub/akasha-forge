@@ -1,94 +1,213 @@
 # Akasha Forge Build Targets
 
-This document defines the first construction targets for Akasha Forge.
+This document lists construction targets for the Akasha ecosystem.
 
-Targets represent systems that the ecosystem should eventually construct or refine.
+Where the ecosystem roadmap describes *direction*, this file describes
+*what Forge will eventually build or assist with building.*
 
-Forge does not build automatically.  
-A human steward approves all construction.
-
----
-
-# Target 001 — ProjectForge
-
-## Purpose
-
-ProjectForge is the system responsible for coordinating AI-assisted repository construction and ecosystem alignment.
-
-It allows Akasha to:
-
-• analyze repositories  
-• detect structural misalignment  
-• propose improvements  
-• generate compliant modules  
-• assist human stewards in development decisions
-
-ProjectForge acts as the **toolsmith for the ecosystem**.
+All build actions remain **human-approved**.
 
 ---
 
-## Responsibilities
+# Current Construction Targets
 
-ProjectForge should eventually provide:
+## Repository Infrastructure
 
-• repository analysis  
-• structural alignment checks  
-• Akasha compliance validation  
-• automated scaffolding  
-• documentation generation  
-• ecosystem mapping tools
+Forge must support generation and maintenance of the following repository types:
 
----
+- discovery engines
+- analysis lenses
+- experiment observers
+- record/memory repositories
+- domain graph repositories
+- ecosystem utilities
 
-## Capabilities
+Forge will assist with:
 
-When complete, ProjectForge may assist with:
-
-Repository health analysis  
-Dependency mapping  
-Architecture visualization  
-Template generation  
-Refactor suggestions  
-Experiment tracking
-
-All operations remain **human approved**.
+- repository scaffolding
+- canonical file structure
+- repo-manifest generation
+- alignment corrections suggested by Guardian
 
 ---
 
-## Relationship to Akasha
+# Immediate Targets
 
-ProjectForge is not the ecosystem.
+These are the next repositories expected to be created.
 
-ProjectForge is a **tool inside the ecosystem**.
+## akasha-lens
 
-akasha-axioms define rules  
-akasha-world defines knowledge  
-akasha-discovery explores unknowns  
-akasha-forge constructs tools  
-akasha-constellation maps the system  
+Purpose:
 
-ProjectForge assists stewards in managing those tools.
+Interpret artifacts and extract meaning.
 
----
+Capabilities:
 
-## Future Targets
+- program analysis
+- semantic interpretation
+- knowledge graph creation
+- pattern recognition across artifacts
 
-Additional targets may include:
+Typical inputs:
 
-Discovery simulation engines  
-Knowledge graph explorers  
-Phase ontology tools  
-Scientific experiment orchestration systems  
-Visualization tools for multidimensional data
-
-Targets will be added through steward approval.
+- binaries
+- repositories
+- datasets
+- experiment outputs
 
 ---
 
-## Philosophy
+## akasha-observer
 
-Akasha grows through discovery.
+Purpose:
 
-Forge exists so that discovery can build the tools it requires.
+Execute experiments and evaluate outcomes.
 
-ProjectForge is the first step toward that goal.
+Capabilities:
+
+- run generated tools
+- perform discovery experiments
+- capture results
+- feed outputs into Akasha Record
+
+---
+
+## akasha-record
+
+Purpose:
+
+Long-term ecosystem memory.
+
+Capabilities:
+
+- store experiment results
+- preserve discovery history
+- archive generated artifacts
+- maintain reproducibility
+
+---
+
+# Structural Targets
+
+Forge must also support creation of structural system components.
+
+## Repo Manifests
+
+Forge should be able to generate and validate:
+
+repo-manifest.yaml
+
+These allow repositories to describe:
+
+- their role
+- their layer
+- their capabilities
+- their dependencies
+
+---
+
+## Canonical Repo Templates
+
+Forge should maintain templates for common repository types:
+
+- engine repositories
+- lens repositories
+- governance repositories
+- graph repositories
+- node repositories
+
+Templates ensure consistency across the ecosystem.
+
+---
+
+# Evolution Targets
+
+These ideas represent long-term system capabilities.
+
+## Self-Morphing Repositories
+
+Research direction:
+
+Repositories capable of describing their structure and proposing
+improvements aligned with Akasha axioms.
+
+Workflow:
+
+repository  
+↓  
+Guardian inspection  
+↓  
+drift detection  
+↓  
+Forge generates correction plan  
+↓  
+human approval  
+↓  
+repository evolves  
+
+---
+
+## Program Reconstruction Pipeline
+
+Research direction:
+
+AI-assisted cross-platform program reconstruction.
+
+Pipeline concept:
+
+artifact  
+↓  
+analysis tools (Ghidra, JADX, etc.)  
+↓  
+semantic interpretation  
+↓  
+platform-neutral model  
+↓  
+Forge synthesizes new implementation  
+
+This would support tool evolution across architectures.
+
+---
+
+# Tool Integration Targets
+
+Forge may integrate external tools through extensions.
+
+Potential integrations:
+
+- Ghidra
+- JADX
+- binary analysis frameworks
+- build systems
+- graph processing tools
+
+Forge coordinates these tools rather than replacing them.
+
+---
+
+# Human Stewardship
+
+Forge does not autonomously deploy changes.
+
+Instead it:
+
+- proposes new repositories
+- generates templates
+- suggests structural corrections
+- prepares patch sets
+
+A human steward reviews and approves changes.
+
+---
+
+# Guiding Principle
+
+Forge builds tools.
+
+Forge does not decide the direction of the ecosystem.
+
+Direction is defined by:
+
+- Akasha Axioms
+- Akasha World
+- the human steward
