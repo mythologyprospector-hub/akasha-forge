@@ -92,6 +92,10 @@ Forge exists so the ecosystem can **grow intentionally rather than chaotically**
 
 ---
 
+This repository participates in the Akasha ecosystem and is described by repo-manifest.yaml.
+
+---
+
 ## Bootstrap Engine (Initial Implementation)
 
 Akasha Forge now includes a minimal executable layer to receive and respond to Discovery output.
@@ -142,8 +146,3 @@ Those capabilities will be added incrementally.
     "NOTES.md"
   ]
 }
-
----
-
-
-This repository participates in the Akasha ecosystem and is described by repo-manifest.yaml.
