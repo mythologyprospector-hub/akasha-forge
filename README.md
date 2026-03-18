@@ -90,5 +90,60 @@ It is an evolving research environment.
 
 Forge exists so the ecosystem can **grow intentionally rather than chaotically**.
 
+---
+
+## Bootstrap Engine (Initial Implementation)
+
+Akasha Forge now includes a minimal executable layer to receive and respond to Discovery output.
+
+Location:
+
+akasha-forge/engine/forge_stub.py
+
+This module represents the first operational step of Forge. It does not yet generate full repositories. Instead, it translates Discovery hypotheses into structured build plans.
+
+### Function
+
+• accepts hypothesis output from akasha-discovery  
+• generates a structured build plan  
+• prepares repository and module scaffolding instructions  
+• writes output to build_outputs/ as JSON  
+
+This establishes the first working bridge between:
+
+akasha-discovery → akasha-forge
+
+### Current Behavior
+
+The Forge stub performs:
+
+hypothesis → build plan
+
+It does not yet:
+
+• generate full repositories  
+• push to GitHub  
+• enforce full schema validation  
+• auto-integrate with constellation  
+
+Those capabilities will be added incrementally.
+
+### Example Output
+
+```json
+{
+  "target": "time_crystal",
+  "source_gap_score": 0.9,
+  "recommended_action": "Create exploratory module for 'time_crystal'",
+  "repo_candidate": "akasha-time-crystal",
+  "files_to_create": [
+    "README.md",
+    "repo-manifest.yaml",
+    "NOTES.md"
+  ]
+}
+
+---
+
 
 This repository participates in the Akasha ecosystem and is described by repo-manifest.yaml.
