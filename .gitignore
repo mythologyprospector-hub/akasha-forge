@@ -1,1 +1,4 @@
 printf "\n__pycache__/\n*.pyc\n" >> ~/akasha-forge/.gitignore
+
+__pycache__/
+*.pyc
