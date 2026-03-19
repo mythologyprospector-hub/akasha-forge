@@ -1,77 +1,96 @@
-"""
-Forge Stub
-
-Takes a discovery hypothesis and turns it into a very small
-build proposal. This is the first executable step of Akasha Forge.
-"""
-
-from pathlib import Path
 import json
+from pathlib import Path
 
 
 class ForgeStub:
-    def __init__(self, output_dir: str = "build_outputs"):
-        self.output_dir = Path(output_dir)
-        self.output_dir.mkdir(parents=True, exist_ok=True)
+
+    OUTPUT_DIR = Path.home() / "akasha-discovery" / "build_outputs"
 
     def build_proposal(self, hypothesis: dict) -> dict:
-        target = hypothesis.get("target", "unknown_target")
-        gap_score = hypothesis.get("gap_score", 0.0)
-        gap_type = hypothesis.get("gap_type", "unknown")
-        reason   = hypothesis.get("reason", "")
-        proposal = hypothesis.get("proposal", "")
-        suggestions = hypothesis.get("suggestions", [])
+        gap_type = hypothesis.get("gap_type")
 
-        # Only structural_sink defaults to repo creation.
-        # isolated = needs human review before action.
-        # sparse = observe, don't build yet.
-        action_map = {
-            "structural_sink": "propose_extension",
-            "isolated":        "flag_for_review",
-            "sparse":          "observe",
-        }
-        action = action_map.get(gap_type, "flag_for_review")
+        if gap_type in ("isolated",):
+            action = "flag_for_review"
+            repo_candidate = None
 
-        build_plan = {
-            "target": target,
-            "gap_type": gap_type,
-            "reason": reason,
-            "gap_score": gap_score,
+        elif gap_type in ("structural_sink",):
+            action = "propose_extension"
+            repo_candidate = f"akasha-{hypothesis['target']}"
+
+        elif gap_type == "intentional_terminal":
+            action = "flag_for_review"
+            repo_candidate = None
+
+        else:
+            action = "flag_for_review"
+            repo_candidate = None
+
+        return {
+            "target": hypothesis["target"],
+            "gap_type": hypothesis["gap_type"],
+            "reason": hypothesis["reason"],
+            "gap_score": hypothesis["gap_score"],
             "action": action,
-            "source_proposal": proposal,
-            "recommended_action": f"Create exploratory module for '{target}'" if action == "propose_extension" else f"Review '{target}' before materializing",
-            "repo_candidate": f"akasha-{target.lower().replace(' ', '-').replace('_', '-')}" if action == "propose_extension" else None,
-            "files_to_create": ["README.md", "repo-manifest.yaml", "NOTES.md"] if action == "propose_extension" else [],
-            "next_steps": suggestions
+            "source_proposal": hypothesis["proposal"],
+            "recommended_action": (
+                f"Create exploratory module for '{hypothesis['target']}'"
+                if repo_candidate else f"Review '{hypothesis['target']}' before materializing"
+            ),
+            "repo_candidate": repo_candidate,
+            "files_to_create": [
+                "README.md",
+                "repo-manifest.yaml",
+                "NOTES.md"
+            ] if repo_candidate else [],
+            "next_steps": hypothesis["suggestions"]
         }
 
-        return build_plan
+    def save_build_plan(self, plan: dict) -> str:
+        self.OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+        filename = f"{plan['target']}_build_plan.json"
+        path = self.OUTPUT_DIR / filename
 
-    def save_build_plan(self, build_plan: dict) -> str:
-        safe_name = build_plan["target"].lower().replace(" ", "_").replace("-", "_")
-        output_file = self.output_dir / f"{safe_name}_build_plan.json"
+        path.write_text(json.dumps(plan, indent=2))
+        return str(path)
 
-        with open(output_file, "w", encoding="utf-8") as f:
-            json.dump(build_plan, f, indent=2)
+    def materialize(self, plan: dict):
+        repo_name = plan.get("repo_candidate")
 
-        return str(output_file)
+        if not repo_name:
+            return
 
+        repo_path = Path.home() / repo_name
 
-if __name__ == "__main__":
-    sample_hypothesis = {
-        "target": "time_crystal",
-        "gap_score": 0.9,
-        "proposal": "Explore missing connections for 'time_crystal'",
-        "suggestions": [
-            "Link 'time_crystal' to adjacent domains",
-            "Search for analogous structures in other fields",
-            "Generate tool or model to bridge domain gap"
-        ]
-    }
+        if repo_path.exists():
+            print(f"[Forge] Repo already exists: {repo_name}")
+            return
 
-    forge = ForgeStub()
-    plan = forge.build_proposal(sample_hypothesis)
-    path = forge.save_build_plan(plan)
+        print(f"[Forge] Creating repo: {repo_name}")
+        repo_path.mkdir(parents=True)
 
-    print("Build plan saved to:", path)
-    print(json.dumps(plan, indent=2))
+        # README
+        (repo_path / "README.md").write_text(f"""# {repo_name}
+
+Exploratory module generated by Akasha Forge.
+
+---
+
+This repository participates in the Akasha ecosystem and is described by repo-manifest.yaml.
+""")
+
+        # manifest
+        (repo_path / "repo-manifest.yaml").write_text(f"""name: {repo_name}
+domain: exploratory
+status: draft
+""")
+
+        # notes
+        (repo_path / "NOTES.md").write_text(f"""# Notes
+
+This module was generated in response to a discovery gap:
+
+Target: {plan['target']}
+Reason: {plan['reason']}
+""")
+
+        print(f"[Forge] Scaffold created at ~/{repo_name}")
