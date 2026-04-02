@@ -75,3 +75,8 @@ domain: systems
 depends_on:
 - akasha-world
 - akasha-constellation
+
+engine:
+  family: discovery
+  class: discovery_engine
+  role: unknown
