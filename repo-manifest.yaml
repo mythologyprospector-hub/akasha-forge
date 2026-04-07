@@ -46,3 +46,11 @@ alignment:
 depends_on:
   - akasha-discovery
   - akasha-graph-phases
+
+# ---- Canonical sections added by akasha-canon ----
+type: organ
+
+family: discovery
+
+role: forge
+
